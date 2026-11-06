@@ -1,0 +1,11 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TeachLoop learning map mark">
+  <rect x="8" y="8" width="144" height="144" rx="18" fill="#FFFDF8"/>
+  <rect x="8" y="8" width="144" height="144" rx="18" stroke="#1C2420" stroke-width="8"/>
+  <path d="M42 82C42 58.804 60.804 40 84 40H118" stroke="#116B5B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M118 40L104 26" stroke="#116B5B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M118 40L104 54" stroke="#116B5B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M118 78C118 101.196 99.196 120 76 120H42" stroke="#BD6B19" stroke-width="12" stroke-linecap="round"/>
+  <path d="M42 120L56 106" stroke="#BD6B19" stroke-width="12" stroke-linecap="round"/>
+  <path d="M42 120L56 134" stroke="#BD6B19" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="80" cy="80" r="17" fill="#2A5D8F"/>
+</svg>

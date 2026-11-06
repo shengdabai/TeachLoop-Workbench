@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>0001: 从学习主题到练习任务</title>
+    <style>
+      :root { --ink: #1c2420; --muted: #5e6761; --line: #d6d0c5; --accent: #116b5b; --bg: #fffdf8; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.62; }
+      main { max-width: 860px; margin: 0 auto; padding: 36px 20px 54px; }
+      h1 { font-size: clamp(32px, 6vw, 54px); line-height: 1.04; margin: 0 0 18px; letter-spacing: 0; }
+      h2 { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+      .lede { color: var(--muted); font-size: 19px; }
+      .exercise { border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 8px; padding: 18px; background: #fff; }
+      code { background: #f4f1ea; padding: 2px 5px; border-radius: 4px; }
+      @media print { main { padding: 0; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>从学习主题到练习任务</h1>
+      <p class="lede">本课只解决一件事：不要把“我要学 X”停留在阅读愿望里，而是转成一个今天能完成、能验证、能复盘的小任务。</p>
+
+      <h2>1. 写出用途</h2>
+      <p>把主题写成结果句：我学习 <code>X</code>，是为了在 <code>真实场景</code> 中完成 <code>可观察结果</code>。</p>
+
+      <h2>2. 限定单课</h2>
+      <p>一课只教一个动作。不是“学会 AI 工作台”，而是“用 15 分钟向客户解释 Codex + Claude Code + 本地知识库的价值链”。</p>
+
+      <h2>3. 闭卷回忆</h2>
+      <p>先不看材料，写出你认为的步骤。然后再打开材料校正。校正出来的错漏，就是下一轮学习最值钱的内容。</p>
+
+      <section class="exercise">
+        <h2>练习</h2>
+        <ol>
+          <li>打开 <a href="../index.html">TeachLoop 学习工作台</a>。</li>
+          <li>输入一个你今天必须学的主题。</li>
+          <li>用一句话写清真实用途。</li>
+          <li>完成 Q1-Q3 的闭卷回答。</li>
+          <li>导出记录，把最重要的一条错漏写进 <code>learning-records/</code>。</li>
+        </ol>
+      </section>
+
+      <h2>参考</h2>
+      <p>配套速查：<a href="../reference/learning-loop-reference.html">TeachLoop 学习循环速查</a>。主来源：<a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/teach/SKILL.md">mattpocock teach skill</a>。</p>
+    </main>
+  </body>
+</html>

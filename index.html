@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TeachLoop 学习工作台</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23116b5b'/%3E%3Ccircle cx='8' cy='8' r='3' fill='%23fffdf8'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand-lockup">
+        <img src="./assets/learning-map.svg" alt="" class="brand-mark">
+        <div>
+          <p class="eyebrow">TeachLoop</p>
+          <h1>学习工作台</h1>
+        </div>
+      </div>
+      <div class="header-actions" aria-label="全局操作">
+        <button id="exportMarkdown" class="button secondary" type="button">导出记录</button>
+        <button id="resetWorkspace" class="icon-button" type="button" title="清空当前本地学习状态" aria-label="清空当前本地学习状态">↺</button>
+      </div>
+    </header>
+
+    <main class="layout-shell">
+      <section class="panel mission-panel" aria-labelledby="missionTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Mission</p>
+          <h2 id="missionTitle">把任何主题变成可练习的学习任务</h2>
+        </div>
+
+        <form id="missionForm" class="mission-form">
+          <label>
+            <span>学习主题</span>
+            <input id="topic" name="topic" type="text" value="AI 本机工作台搭建服务" autocomplete="off" required>
+          </label>
+          <label>
+            <span>真实用途</span>
+            <textarea id="outcome" name="outcome" rows="3" required>把 Codex、Claude Code、本地知识库、skills 和自动化能力打包成可交付服务，并能向创作者和小团队老板讲清价值。</textarea>
+          </label>
+          <div class="form-grid">
+            <label>
+              <span>当前水平</span>
+              <select id="level" name="level">
+                <option value="beginner">新手，需要建立框架</option>
+                <option value="operator" selected>能操作，需要系统化</option>
+                <option value="builder">能搭建，需要产品化</option>
+                <option value="expert">能交付，需要提炼方法</option>
+              </select>
+            </label>
+            <label>
+              <span>今天可用时间</span>
+              <select id="timebox" name="timebox">
+                <option value="15">15 分钟</option>
+                <option value="30" selected>30 分钟</option>
+                <option value="60">60 分钟</option>
+                <option value="120">120 分钟</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            <span>材料或链接</span>
+            <textarea id="materials" name="materials" rows="4" placeholder="粘贴文章、课程、会议记录、书摘、链接或你要学的原始材料。"></textarea>
+          </label>
+          <div class="button-row">
+            <button class="button primary" type="submit">生成学习循环</button>
+            <button id="saveSnapshot" class="button secondary" type="button">保存快照</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel dashboard-panel" aria-labelledby="dashboardTitle">
+        <div class="section-heading compact">
+          <p class="eyebrow">Today</p>
+          <h2 id="dashboardTitle">当前学习循环</h2>
+        </div>
+        <div id="statusStrip" class="status-strip" aria-live="polite"></div>
+        <div id="loopBoard" class="loop-board"></div>
+      </section>
+
+      <section class="panel practice-panel" aria-labelledby="practiceTitle">
+        <div class="section-heading compact">
+          <p class="eyebrow">Practice</p>
+          <h2 id="practiceTitle">即时回忆练习</h2>
+        </div>
+        <div id="quizArea" class="quiz-area"></div>
+      </section>
+
+      <section class="panel plan-panel" aria-labelledby="planTitle">
+        <div class="section-heading compact">
+          <p class="eyebrow">Plan</p>
+          <h2 id="planTitle">7 天巩固路线</h2>
+        </div>
+        <div id="planTable" class="plan-table"></div>
+      </section>
+
+      <section class="panel review-panel" aria-labelledby="reviewTitle">
+        <div class="section-heading compact">
+          <p class="eyebrow">Review</p>
+          <h2 id="reviewTitle">产品级学习质量检查</h2>
+        </div>
+        <div id="reviewChecklist" class="checklist"></div>
+      </section>
+    </main>
+
+    <dialog id="exportDialog" class="export-dialog">
+      <form method="dialog">
+        <div class="dialog-head">
+          <h2>Teach 工作区记录</h2>
+          <button class="icon-button" value="cancel" aria-label="关闭">×</button>
+        </div>
+        <textarea id="exportOutput" rows="18" spellcheck="false"></textarea>
+        <div class="button-row right">
+          <button id="copyExport" class="button secondary" type="button">复制</button>
+          <button class="button primary" value="default">完成</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
