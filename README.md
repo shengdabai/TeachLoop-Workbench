@@ -7,8 +7,8 @@
 直接双击 `index.html` 可以打开。需要本地服务时运行：
 
 ```bash
-cd ~/Desktop/学习资料/12-TeachLoop学习工作台
-python3 -m http.server 8127
+cd TeachLoop-Workbench
+python3 -m http.server 8127 --bind 127.0.0.1
 ```
 
 然后打开 `http://127.0.0.1:8127/`。

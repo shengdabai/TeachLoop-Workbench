@@ -13,6 +13,8 @@ const planTable = document.querySelector("#planTable");
 const reviewChecklist = document.querySelector("#reviewChecklist");
 const exportDialog = document.querySelector("#exportDialog");
 const exportOutput = document.querySelector("#exportOutput");
+const workspaceNotice = document.querySelector("#workspaceNotice");
+const exportNotice = document.querySelector("#exportNotice");
 
 const defaultState = {
   topic: topicInput.value,
@@ -25,18 +27,49 @@ const defaultState = {
   lastGeneratedAt: new Date().toISOString()
 };
 
+function freshState() {
+  return { ...defaultState, snapshots: [], completed: {}, lastGeneratedAt: new Date().toISOString() };
+}
+
 function loadState() {
+  const loaded = freshState();
   try {
-    return { ...defaultState, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    if (!saved || typeof saved !== "object" || Array.isArray(saved)) return loaded;
+    for (const field of ["topic", "outcome", "materials"]) {
+      if (typeof saved[field] === "string") loaded[field] = saved[field];
+    }
+    if (["beginner", "operator", "builder", "expert"].includes(saved.level)) loaded.level = saved.level;
+    if (["15", "30", "60", "120"].includes(saved.timebox)) loaded.timebox = saved.timebox;
+    if (typeof saved.lastGeneratedAt === "string" && Number.isFinite(Date.parse(saved.lastGeneratedAt))) {
+      loaded.lastGeneratedAt = saved.lastGeneratedAt;
+    }
+    if (Array.isArray(saved.snapshots)) loaded.snapshots = saved.snapshots.slice(0, 12);
+    if (saved.completed && typeof saved.completed === "object" && !Array.isArray(saved.completed)) {
+      for (const key of ["quiz-0", "quiz-1", "quiz-2"]) {
+        if (typeof saved.completed[key] === "string") loaded.completed[key] = saved.completed[key];
+      }
+    }
   } catch {
-    return { ...defaultState };
+    // Invalid or unavailable storage must not prevent offline use.
   }
+  return loaded;
 }
 
 let state = loadState();
 
+function showNotice(element, message) {
+  element.textContent = message;
+  element.hidden = !message;
+}
+
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    showNotice(workspaceNotice, "");
+  } catch {
+    showNotice(workspaceNotice, "无法保存到浏览器。当前内容仍可使用，请导出记录后再关闭页面。");
+  }
 }
 
 function escapeHtml(value) {
@@ -315,17 +348,30 @@ quizArea.addEventListener("click", (event) => {
 document.querySelector("#exportMarkdown").addEventListener("click", () => {
   syncFromForm();
   exportOutput.value = exportMarkdown();
+  showNotice(exportNotice, "");
   exportDialog.showModal();
 });
 
 document.querySelector("#copyExport").addEventListener("click", async () => {
-  await navigator.clipboard.writeText(exportOutput.value);
+  try {
+    await navigator.clipboard.writeText(exportOutput.value);
+    showNotice(exportNotice, "已复制记录。");
+  } catch {
+    exportOutput.focus();
+    exportOutput.select();
+    showNotice(exportNotice, "无法自动复制。已选中记录，请手动复制。");
+  }
 });
 
 document.querySelector("#resetWorkspace").addEventListener("click", () => {
   if (!confirm("清空这个浏览器里的 TeachLoop 本地状态？文件不会被删除。")) return;
-  localStorage.removeItem(STORAGE_KEY);
-  state = { ...defaultState };
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    showNotice(workspaceNotice, "");
+  } catch {
+    showNotice(workspaceNotice, "无法清除浏览器存储。当前页面已重置，重新打开时可能恢复旧记录。");
+  }
+  state = freshState();
   render();
 });
 
