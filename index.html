@@ -67,6 +67,7 @@
             <button id="saveSnapshot" class="button secondary" type="button">保存快照</button>
           </div>
         </form>
+        <p id="workspaceNotice" role="status" hidden></p>
       </section>
 
       <section class="panel dashboard-panel" aria-labelledby="dashboardTitle">
@@ -110,6 +111,7 @@
           <button class="icon-button" value="cancel" aria-label="关闭">×</button>
         </div>
         <textarea id="exportOutput" rows="18" spellcheck="false"></textarea>
+        <p id="exportNotice" role="status" hidden></p>
         <div class="button-row right">
           <button id="copyExport" class="button secondary" type="button">复制</button>
           <button class="button primary" value="default">完成</button>
